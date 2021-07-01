@@ -19,6 +19,8 @@ class Listener : AppCompatActivity() {
         // 람다방식
         binding.hello.setOnClickListener {
             Log.d("click", "Click!!")
+            // 이미지 변경 코드
+            binding.imageView.setImageResource(R.drawable.ic_launcher_foreground)
         }
 
 //        // 익명함수 방식
@@ -36,5 +38,6 @@ class Listener : AppCompatActivity() {
 //        }
 //
 //        binding.hello.setOnClickListener(check)
+
     }
 }
