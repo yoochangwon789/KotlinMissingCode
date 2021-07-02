@@ -16,8 +16,17 @@ class Intent1 : AppCompatActivity() {
         setContentView(view)
 
         binding.changeActivity.setOnClickListener {
-            val intent = Intent(this@Intent1, Intent2::class.java)
-            startActivity(intent)
+//            val intent = Intent(this@Intent1, Intent2::class.java)
+//            intent.putExtra("number1", 1)
+//            intent.putExtra("number2", 2)
+//            startActivity(intent)
+
+            val intent2 = Intent(this@Intent1, Intent2::class.java)
+            intent2.apply {
+                putExtra("number1", 1)
+                putExtra("number2", 2)
+            }
+            startActivity(intent2)
         }
     }
 }
