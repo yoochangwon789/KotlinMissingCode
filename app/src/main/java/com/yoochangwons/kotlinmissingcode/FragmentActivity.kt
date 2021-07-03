@@ -19,6 +19,12 @@ class FragmentActivity : AppCompatActivity() {
 
         val fragmentOne: FragmentOne = FragmentOne()
 
+        // 프라그먼트에 data 를 넣어주는 방법
+        // bundle 을 만들어주어 프라그먼트에 끼워 넣어 줘야 한다
+        val bundle: Bundle = Bundle()
+        bundle.putString("hello", "Hello!!")
+        fragmentOne.arguments = bundle
+
         binding.btn.setOnClickListener {
             // 프라그먼트를 동적으로 작동하는 방법
             val fragmentManager: FragmentManager = supportFragmentManager
@@ -39,7 +45,9 @@ class FragmentActivity : AppCompatActivity() {
             val fragmentTransaction = fragmentManager.beginTransaction()
 
             // 프라그먼트를 때는 방법
-            fragmentTransaction.detach(fragmentOne)
+            // detach -> 한번 때면 다시 붙이지 못한다
+            // remove -> 다시 붙이려고 할 때 사용한다
+            fragmentTransaction.remove(fragmentOne)
             fragmentTransaction.commit()
         }
     }
