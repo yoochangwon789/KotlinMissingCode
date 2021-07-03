@@ -19,3 +19,7 @@ Fragment 사용처
 Fragment
     - 라이프 사이클이 존재한다
     - Activity 종속적이다
+
+사용방법
+- XML 에 ViewComponent 로 추가한다
+- 코드로 동적으로 추가한다
