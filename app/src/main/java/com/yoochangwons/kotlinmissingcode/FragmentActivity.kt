@@ -17,9 +17,10 @@ class FragmentActivity : AppCompatActivity() {
         setContentView(view)
         Log.d("life_cycle", "onCreate")
 
+        val fragmentOne: FragmentOne = FragmentOne()
+
         binding.btn.setOnClickListener {
             // 프라그먼트를 동적으로 작동하는 방법
-            val fragmentOne: FragmentOne = FragmentOne()
             val fragmentManager: FragmentManager = supportFragmentManager
 
             // Transaction
@@ -30,6 +31,15 @@ class FragmentActivity : AppCompatActivity() {
             // 끝을 내는 방법 2가지
             // commit() -> 시간 될 때 해 (좀더 안정적)
             // commitNow() -> 지금 당장해
+            fragmentTransaction.commit()
+        }
+
+        binding.btn2.setOnClickListener {
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            // 프라그먼트를 때는 방법
+            fragmentTransaction.detach(fragmentOne)
             fragmentTransaction.commit()
         }
     }
