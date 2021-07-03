@@ -21,5 +21,9 @@ Fragment
     - Activity 종속적이다
 
 사용방법
-- XML 에 ViewComponent 로 추가한다
-- 코드로 동적으로 추가한다
+    - XML 에 ViewComponent 로 추가한다
+    - 코드로 동적으로 추가한다
+
+데이터 전달 방법
+    - Activity -> Fragment : argument 와 bundle
+    - Fragment -> Activity : 자체 구현(리스너 구현)

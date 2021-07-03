@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.fragment.app.FragmentManager
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityFragmentBinding
 
-class FragmentActivity : AppCompatActivity() {
+class FragmentActivity : AppCompatActivity(), FragmentOne.OneDataPassListener {
 
     private lateinit var binding: ActivityFragmentBinding
 
@@ -75,5 +75,9 @@ class FragmentActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("life_cycle", "onDestroy")
+    }
+
+    override fun onDataPass(data: String?) {
+        Log.d("pass", "$data")
     }
 }

@@ -7,12 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.yoochangwons.kotlinmissingcode.databinding.FragmentOneBinding
 
 class FragmentOne : Fragment() {
+
+    private var _binding: FragmentOneBinding? = null
+    private val binding get() = _binding!!
+
+    interface OneDataPassListener {
+        fun onDataPass(data: String?)
+    }
+
+    lateinit var dataPassListener: OneDataPassListener
 
     override fun onAttach(context: Context) {
         Log.d("fragment_life_cycle", "onAttach")
         super.onAttach(context)
+        dataPassListener = context as OneDataPassListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +41,19 @@ class FragmentOne : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("fragment_life_cycle", "onCreateView")
-
-        return inflater.inflate(R.layout.fragment_one, container, false)
+        _binding = FragmentOneBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
+    // Activity 의 onCreate 에서 했던 작업을 여기에서 한다
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d("fragment_life_cycle", "onViewCreated")
+
+        _binding?.pass?.setOnClickListener {
+            dataPassListener.onDataPass("Good Bye")
+        }
+
         super.onViewCreated(view, savedInstanceState)
     }
 
