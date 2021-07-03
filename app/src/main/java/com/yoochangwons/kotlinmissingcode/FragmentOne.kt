@@ -20,13 +20,18 @@ class FragmentOne : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    // Fragment 의 직접적인 뷰를 그리는 곳
+    // Fragment 가 첫 인터페이스를 그릴 때 호출한다
+    // inflater -> view 를 그려준다
+    // container -> 부모뷰를 지정 (달라붙을 곳을 지정한다)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         Log.d("fragment_life_cycle", "onCreateView")
-        return super.onCreateView(inflater, container, savedInstanceState)
+
+        return inflater.inflate(R.layout.fragment_one, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -3,11 +3,17 @@ package com.yoochangwons.kotlinmissingcode
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.yoochangwons.kotlinmissingcode.databinding.ActivityFragmentBinding
 
 class FragmentActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityFragmentBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fragment)
+        binding = ActivityFragmentBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         Log.d("life_cycle", "onCreate")
     }
 
