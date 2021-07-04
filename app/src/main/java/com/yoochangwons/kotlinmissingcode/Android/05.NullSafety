@@ -1,0 +1,11 @@
+
+
+
+05. NullSafety
+
+- Null 의 대해서 안전하다
+- Kotlin 의 특징이다
+
+Null 문법
+    button?.setOnclickListener -> ? 앞의 있는게 Null 이 아니라면 뒤에있는 것을 실행하겠다
+    button!!.setOnclickListener -> !! 앞의 있는 것은 확실히 Null 이아니다 -> 개발자가 Null 아님을 보장
