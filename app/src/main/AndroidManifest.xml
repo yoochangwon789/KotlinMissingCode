@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
+        <activity android:name=".ContextActivity"></activity>
         <activity android:name=".NullSafety">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,10 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentActivity">
-
-        </activity>
-        <activity android:name=".InternetOpenPage"></activity>
+        <activity android:name=".FragmentActivity"></activity>
+        <activity android:name=".InternetOpenPage" />
         <activity android:name=".Intent2" />
         <activity android:name=".Intent1" />
         <activity android:name=".Calculator" />
