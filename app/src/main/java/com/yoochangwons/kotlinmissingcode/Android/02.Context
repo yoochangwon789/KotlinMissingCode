@@ -6,6 +6,12 @@
 - 문맥
 - 액티비티가 가지고 있는 주변 정보
 
--> ActivityManagerService 에 접근 하도록 해주는 역할
+-> ActivityManagerService(개발하기 편하도록 미리 구현 해놓은 기능) 에 접근 하도록 해주는 역할
 
 - 안드로이드는 이미 많은 부분들이 만들어져 있다 -> 이런것들을 사용하기 위해서든 Context 가 필요한 경우가 많다
+- Context 는 안드로이드 개발의 뿌리라고 볼 수 있다.
+
+종류
+- activity 의 context
+- application 의 context -> Application 의 주변 정보
+- ApplicationContext > ActivityContext
