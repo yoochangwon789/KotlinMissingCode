@@ -1,9 +1,11 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -37,7 +39,17 @@ class PhoneBookActivity : AppCompatActivity() {
                 .into(itemPhoneBookImage)
 
             itemPhoneBookName.text = phoneBookArrayList[i].phoneBookName
+            addSetOnClickListener(phoneBookArrayList[i], itemView)
             binding.phoneBookContainer.addView(itemView)
+
+        }
+    }
+
+    fun addSetOnClickListener(phoneBookList: PhoneBookList, view : View) {
+        view.setOnClickListener {
+            val intent = Intent(this, PhoneBookDetail::class.java)
+            intent.putExtra("name", phoneBookList.phoneBookName)
+            startActivity(intent)
         }
     }
 }
