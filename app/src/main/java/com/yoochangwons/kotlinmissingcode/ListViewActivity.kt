@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityListViewBinding
 
 class ListViewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListViewBinding
 
+    @SuppressLint("ShowToast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListViewBinding.inflate(layoutInflater)
@@ -28,6 +30,13 @@ class ListViewActivity : AppCompatActivity() {
 
         val adapter = ListViewAdapter(carList, this)
         binding.listView.adapter = adapter
+
+        binding.listView.setOnItemClickListener { parent, view, position, id ->
+            val carName = (adapter.getItem(position) as CarForList).name
+            val carEngine = (adapter.getItem(position) as CarForList).engine
+
+            Toast.makeText(this, "$carName $carEngine", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 
