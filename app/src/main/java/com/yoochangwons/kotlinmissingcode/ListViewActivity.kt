@@ -59,15 +59,29 @@ class ListViewAdapter(
 
     @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val layoutInflater = LayoutInflater.from(context)
-        val view = layoutInflater.inflate(R.layout.item_view, null)
-        val carNameText = view.findViewById<TextView>(R.id.car_name)
-        val carEngineText = view.findViewById<TextView>(R.id.car_engine)
+        val view: View
+        val holder: ViewHolder
 
-        carNameText.text = carForList[position].name
-        carEngineText.text = carForList[position].engine
+        if (convertView == null) {
+            val layoutInflater = LayoutInflater.from(context)
+            view = layoutInflater.inflate(R.layout.item_view, null)
+            holder = ViewHolder()
+            holder.carName = view.findViewById<TextView>(R.id.car_name)
+            holder.carEngine = view.findViewById<TextView>(R.id.car_engine)
+
+            view.tag = holder
+        } else {
+            holder = convertView.tag as ViewHolder
+            view = convertView
+        }
+        holder.carName?.text = carForList[position].name
+        holder.carEngine?.text = carForList[position].engine
 
         return view
     }
-
 }
+
+class ViewHolder(
+    var carName: TextView? = null,
+    var carEngine: TextView? = null
+)
