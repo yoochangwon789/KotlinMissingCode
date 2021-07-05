@@ -20,7 +20,8 @@ class PhoneBookDetail : AppCompatActivity() {
             .load("https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg")
             .into(binding.personDetailImage)
 
-        val intent = Intent()
-        binding.personDetailText.setText(intent.getStringExtra("name"))
+        val name = intent.getStringExtra("name")
+
+        binding.personDetailText.text = name
     }
 }

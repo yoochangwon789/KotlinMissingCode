@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -49,6 +50,7 @@ class PhoneBookActivity : AppCompatActivity() {
         view.setOnClickListener {
             val intent = Intent(this, PhoneBookDetail::class.java)
             intent.putExtra("name", phoneBookList.phoneBookName)
+            Log.d("name", phoneBookList.phoneBookName)
             startActivity(intent)
         }
     }
