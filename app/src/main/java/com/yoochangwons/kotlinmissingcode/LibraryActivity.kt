@@ -17,6 +17,7 @@ class LibraryActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load("https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg")
+            .centerCrop()
             .into(binding.glide)
     }
 }
