@@ -33,5 +33,6 @@ class AddViewActivity : AppCompatActivity() {
         }
     }
 
-    class CarForList(val name: String, val engine: String) {}
 }
+
+class CarForList(val name: String, val engine: String) {}
