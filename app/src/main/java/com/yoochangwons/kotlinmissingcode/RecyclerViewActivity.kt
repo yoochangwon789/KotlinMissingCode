@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityRecyclerViewBinding
@@ -16,7 +18,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecyclerViewBinding
 
-    private val todoArrayList = ArrayList<TodoList>()
+    private val model: MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,31 +28,24 @@ class RecyclerViewActivity : AppCompatActivity() {
 
         binding.recyclerView.apply {
             adapter = RecyclerViewAdapter(
-                todoArrayList,
-                deleteTodoListIcon = {deleteTodoList(it)},
-                toggleTodoListIcon = {toggleTodoList(it)}
+                model.todoArrayList,
+                deleteTodoListIcon = {
+                    model.deleteTodoList(it)
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
+                },
+                toggleTodoListIcon = {
+                    model.toggleTodoList(it)
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
+                }
             )
             layoutManager = LinearLayoutManager(this@RecyclerViewActivity)
         }
 
         binding.recyclerViewButton.setOnClickListener {
-            addTodoList()
+            val todolist = TodoList(binding.recyclerViewEditText.text.toString())
+            model.addTodoList(todolist)
+            binding.recyclerView.adapter?.notifyDataSetChanged()
         }
-    }
-
-    private fun addTodoList() {
-        todoArrayList.add(TodoList(binding.recyclerViewEditText.text.toString()))
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    private fun deleteTodoList(todoList: TodoList) {
-        todoArrayList.remove(todoList)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    private fun toggleTodoList(todolist: TodoList) {
-        todolist.isDone = !todolist.isDone
-        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
 
@@ -99,5 +94,21 @@ class RecyclerViewAdapter(
 
     override fun getItemCount(): Int {
         return data.size
+    }
+}
+
+class MyViewModel : ViewModel() {
+    val todoArrayList = ArrayList<TodoList>()
+
+    fun addTodoList(todoList: TodoList) {
+        todoArrayList.add(todoList)
+    }
+
+    fun deleteTodoList(todoList: TodoList) {
+        todoArrayList.remove(todoList)
+    }
+
+    fun toggleTodoList(todolist: TodoList) {
+        todolist.isDone = !todolist.isDone
     }
 }
