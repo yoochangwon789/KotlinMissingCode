@@ -1,5 +1,7 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.graphics.Paint
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +30,8 @@ class RecyclerViewActivity : AppCompatActivity() {
 
         val adapter = RecyclerViewAdapter(
             todoArrayList,
-            deleteTodoListIcon = { deleteTodoList(it) }
+            deleteTodoListIcon = { deleteTodoList(it) },
+            toggleTodoListIcon = { toggleTodoList(it) }
         )
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -43,13 +46,19 @@ class RecyclerViewActivity : AppCompatActivity() {
         todoArrayList.remove(todoList)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
+
+    private fun toggleTodoList(todolist: TodoList) {
+        todolist.isDone = !todolist.isDone
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+    }
 }
 
-data class TodoList(var todoText: String, val isDone: Boolean = false)
+data class TodoList(var todoText: String, var isDone: Boolean = false)
 
 class RecyclerViewAdapter(
     private val data: List<TodoList>,
-    private val deleteTodoListIcon: (todolist: TodoList) -> Unit
+    private val toggleTodoListIcon: (todoList: TodoList) -> Unit,
+    private val deleteTodoListIcon: (todoList: TodoList) -> Unit
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(val recyclerViewItemBinding: RecyclerViewItemBinding) :
@@ -64,6 +73,23 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recyclerViewItemBinding.recyclerItemTextView.text = data[position].todoText
+
+        if (data[position].isDone) {
+            holder.recyclerViewItemBinding.recyclerItemTextView.apply {
+                paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                setTypeface(null, Typeface.ITALIC)
+            }
+        } else {
+            holder.recyclerViewItemBinding.recyclerItemTextView.apply {
+                paintFlags = 0
+                setTypeface(null, Typeface.NORMAL)
+            }
+        }
+
+        holder.recyclerViewItemBinding.root.setOnClickListener {
+            toggleTodoListIcon(data[position])
+        }
+
         holder.recyclerViewItemBinding.recyclerItemImageView.setOnClickListener {
             deleteTodoListIcon(data[position])
         }
