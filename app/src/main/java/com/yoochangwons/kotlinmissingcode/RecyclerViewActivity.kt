@@ -3,7 +3,6 @@ package com.yoochangwons.kotlinmissingcode
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +26,10 @@ class RecyclerViewActivity : AppCompatActivity() {
             addTodoList()
         }
 
-        val adapter = RecyclerViewAdapter(todoArrayList)
+        val adapter = RecyclerViewAdapter(
+            todoArrayList,
+            deleteTodoListIcon = { deleteTodoList(it) }
+        )
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
@@ -36,15 +38,22 @@ class RecyclerViewActivity : AppCompatActivity() {
         todoArrayList.add(TodoList(binding.recyclerViewEditText.text.toString()))
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
+
+    private fun deleteTodoList(todoList: TodoList) {
+        todoArrayList.remove(todoList)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+    }
 }
 
 data class TodoList(var todoText: String, val isDone: Boolean = false)
 
 class RecyclerViewAdapter(
-    private val data: List<TodoList>
+    private val data: List<TodoList>,
+    private val deleteTodoListIcon: (todolist: TodoList) -> Unit
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    class ViewHolder(val recyclerViewItemBinding: RecyclerViewItemBinding) : RecyclerView.ViewHolder(recyclerViewItemBinding.root) {}
+    class ViewHolder(val recyclerViewItemBinding: RecyclerViewItemBinding) :
+        RecyclerView.ViewHolder(recyclerViewItemBinding.root) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -55,6 +64,9 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recyclerViewItemBinding.recyclerItemTextView.text = data[position].todoText
+        holder.recyclerViewItemBinding.recyclerItemImageView.setOnClickListener {
+            deleteTodoListIcon(data[position])
+        }
     }
 
     override fun getItemCount(): Int {
