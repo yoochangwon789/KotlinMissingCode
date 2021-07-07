@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityRecyclerViewBinding
 import com.yoochangwons.kotlinmissingcode.databinding.RecyclerViewItemBinding
@@ -22,10 +23,16 @@ class RecyclerViewActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.recyclerViewButton.setOnClickListener {
+            addTodoList()
+        }
 
+        val adapter = RecyclerViewAdapter(todoArrayList)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    fun addTodoList() {
+    private fun addTodoList() {
         todoArrayList.add(TodoList(binding.recyclerViewEditText.text.toString()))
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
