@@ -8,20 +8,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityRecyclerViewBinding
 import com.yoochangwons.kotlinmissingcode.databinding.RecyclerViewItemBinding
+import kotlin.collections.ArrayList
 
 class RecyclerViewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecyclerViewBinding
+
+    private val todoArrayList = ArrayList<TodoList>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecyclerViewBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+    }
+
+    fun addTodoList() {
+        todoArrayList.add(TodoList(binding.recyclerViewEditText.text.toString()))
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
 
-data class TodoList(val todoText: String, val isDone: Boolean = false)
+data class TodoList(var todoText: String, val isDone: Boolean = false)
 
 class RecyclerViewAdapter(
     private val data: List<TodoList>
