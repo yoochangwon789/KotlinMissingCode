@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityTabPagerBinding
 
@@ -23,7 +22,7 @@ class TabPagerActivity : AppCompatActivity() {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("TWO"))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Three"))
 
-        val pagerAdapter = PagerAdapter(supportFragmentManager, 3)
+        val pagerAdapter = FragmentPagerAdapter(supportFragmentManager, 3)
         binding.viewPager.adapter = pagerAdapter
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -44,7 +43,7 @@ class TabPagerActivity : AppCompatActivity() {
     }
 }
 
-class PagerAdapter(
+class FragmentPagerAdapter(
     fragmentManager: FragmentManager,
     private val tabCount: Int
 ) : FragmentStatePagerAdapter(fragmentManager) {
