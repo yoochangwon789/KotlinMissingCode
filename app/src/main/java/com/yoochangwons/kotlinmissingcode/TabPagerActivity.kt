@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayout
 import com.yoochangwons.kotlinmissingcode.databinding.ActivityTabPagerBinding
 
 class TabPagerActivity : AppCompatActivity() {
@@ -24,6 +25,22 @@ class TabPagerActivity : AppCompatActivity() {
 
         val pagerAdapter = PagerAdapter(supportFragmentManager, 3)
         binding.viewPager.adapter = pagerAdapter
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            // tab 이 클릭되었을 때
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.viewPager.currentItem = tab!!.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+        // pager 을 이동 했을 때 tab 레이아웃도 이동하게 하는 기능
+        binding.viewPager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
     }
 }
 
