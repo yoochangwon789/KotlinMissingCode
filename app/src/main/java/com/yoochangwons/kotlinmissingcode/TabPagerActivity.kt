@@ -21,12 +21,15 @@ class TabPagerActivity : AppCompatActivity() {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("ONE"))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("TWO"))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Three"))
+
+        val pagerAdapter = PagerAdapter(supportFragmentManager, 3)
+        binding.viewPager.adapter = pagerAdapter
     }
 }
 
 class PagerAdapter(
     fragmentManager: FragmentManager,
-    val tabCount: Int
+    private val tabCount: Int
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
