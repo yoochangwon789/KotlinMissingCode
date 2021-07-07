@@ -24,17 +24,18 @@ class RecyclerViewActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.recyclerView.apply {
+            adapter = RecyclerViewAdapter(
+                todoArrayList,
+                deleteTodoListIcon = {deleteTodoList(it)},
+                toggleTodoListIcon = {toggleTodoList(it)}
+            )
+            layoutManager = LinearLayoutManager(this@RecyclerViewActivity)
+        }
+
         binding.recyclerViewButton.setOnClickListener {
             addTodoList()
         }
-
-        val adapter = RecyclerViewAdapter(
-            todoArrayList,
-            deleteTodoListIcon = { deleteTodoList(it) },
-            toggleTodoListIcon = { toggleTodoList(it) }
-        )
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun addTodoList() {
@@ -86,12 +87,13 @@ class RecyclerViewAdapter(
             }
         }
 
-        holder.recyclerViewItemBinding.root.setOnClickListener {
-            toggleTodoListIcon(data[position])
-        }
-
-        holder.recyclerViewItemBinding.recyclerItemImageView.setOnClickListener {
-            deleteTodoListIcon(data[position])
+        holder.recyclerViewItemBinding.apply {
+            root.setOnClickListener {
+                toggleTodoListIcon(data[position])
+            }
+            recyclerItemImageView.setOnClickListener {
+                deleteTodoListIcon(data[position])
+            }
         }
     }
 
