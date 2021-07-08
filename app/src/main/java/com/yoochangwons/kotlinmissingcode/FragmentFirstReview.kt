@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yoochangwons.kotlinmissingcode.databinding.FragmentFirstReviewBinding
@@ -17,7 +19,7 @@ class FragmentFirstReview : Fragment() {
     private var _binding: FragmentFirstReviewBinding? = null
     private val binding get() = _binding!!
 
-    private val fragmentFirstTodoArrayList = ArrayList<FragmentTodoList>()
+    private val model: FragmentFirstViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,24 +36,20 @@ class FragmentFirstReview : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.frFirstRecyclerView.apply {
-            adapter = FragmentFirstRecyclerViewAdapter(fragmentFirstTodoArrayList)
+            adapter = FragmentFirstRecyclerViewAdapter(model.fragmentFirstTodoArrayList)
             layoutManager = LinearLayoutManager(activity)
         }
 
         binding.frFirstButton.setOnClickListener {
-            fragmentAddTodoList()
+            val todoList = binding.frFirstEditText.text.toString()
+            model.fragmentAddTodoList(FragmentTodoList(todoList))
+            binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun fragmentAddTodoList() {
-        val text = binding.frFirstEditText.text.toString()
-        fragmentFirstTodoArrayList.add(FragmentTodoList(text))
-        binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
     }
 }
 
@@ -76,5 +74,14 @@ class FragmentFirstRecyclerViewAdapter(
 
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+}
+
+class FragmentFirstViewModel : ViewModel() {
+
+    val fragmentFirstTodoArrayList = ArrayList<FragmentTodoList>()
+
+    fun fragmentAddTodoList(todoList: FragmentTodoList) {
+        fragmentFirstTodoArrayList.add(todoList)
     }
 }
