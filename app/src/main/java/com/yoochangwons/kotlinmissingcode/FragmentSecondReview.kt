@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.yoochangwons.kotlinmissingcode.databinding.FragmentSecondReviewBinding
 import com.yoochangwons.kotlinmissingcode.databinding.FragmentSecondReviewItemBinding
 
@@ -62,7 +61,10 @@ class FragmentSecondRecyclerViewAdapter(private val dataSet: List<FragmentTalent
 class FragmentSecondViewModel : ViewModel() {
     val talentLiveData = MutableLiveData<List<FragmentTalentList>>()
 
-    private val talentList = ArrayList<FragmentTalentList>()
+    private val talentArrayList = ArrayList<FragmentTalentList>()
 
-
+    fun addTalent(talent: FragmentTalentList) {
+        talentArrayList.add(talent)
+        talentLiveData.value = talentArrayList
+    }
 }
