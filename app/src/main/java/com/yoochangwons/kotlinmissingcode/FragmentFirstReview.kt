@@ -1,7 +1,5 @@
 package com.yoochangwons.kotlinmissingcode
 
-import android.app.Activity
-import android.content.Context
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
@@ -43,6 +41,10 @@ class FragmentFirstReview : Fragment() {
                 fragmentToggleIcon = {
                     model.fragmentToggleTodoList(it)
                     binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
+                },
+                fragmentDeleteIcon = {
+                    model.fragmentDeleteTodoList(it)
+                    binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
                 }
             )
             layoutManager = LinearLayoutManager(activity)
@@ -65,7 +67,8 @@ data class FragmentTodoList(val text: String, var isDone: Boolean = false)
 
 class FragmentFirstRecyclerViewAdapter(
     private val dataSet: List<FragmentTodoList>,
-    private val fragmentToggleIcon: (todoList : FragmentTodoList) -> Unit
+    private val fragmentToggleIcon: (todoList : FragmentTodoList) -> Unit,
+    private val fragmentDeleteIcon: (todoList : FragmentTodoList) -> Unit
 ) : RecyclerView.Adapter<FragmentFirstRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(val itemViewBinding: FragmentFirstReviewItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {}
@@ -95,6 +98,10 @@ class FragmentFirstRecyclerViewAdapter(
         viewHolder.itemViewBinding.root.setOnClickListener {
             fragmentToggleIcon(dataSet[position])
         }
+
+        viewHolder.itemViewBinding.frFirstImageViewItem.setOnClickListener {
+            fragmentDeleteIcon(dataSet[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -112,5 +119,9 @@ class FragmentFirstViewModel : ViewModel() {
 
     fun fragmentToggleTodoList(todoList: FragmentTodoList) {
         todoList.isDone = !todoList.isDone
+    }
+
+    fun fragmentDeleteTodoList(todoList: FragmentTodoList) {
+        fragmentFirstTodoArrayList.remove(todoList)
     }
 }
