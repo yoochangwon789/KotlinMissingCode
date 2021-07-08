@@ -36,12 +36,16 @@ class TabPagerReviewActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+
+        binding.viewPagerReview.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(binding.tabLayoutReview)
+        )
     }
 }
 
 class FragmentReviewAdapter(
     private val fragmentManager: FragmentManager,
-    val tabCount : Int
+    private val tabCount : Int
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
