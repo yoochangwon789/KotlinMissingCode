@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -36,7 +37,7 @@ class FragmentSecondReview : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.frSecondRecyclerView.apply {
-            adapter = FragmentSecondRecyclerViewAdapter(emptyList(), this)
+            adapter = FragmentSecondRecyclerViewAdapter(emptyList(), requireActivity())
             layoutManager = LinearLayoutManager(activity)
         }
 
@@ -63,7 +64,7 @@ data class FragmentTalentList(val text: String)
 
 class FragmentSecondRecyclerViewAdapter(
     private var dataSet: List<FragmentTalentList>,
-    private val fragmentActivity: RecyclerView
+    private val activity: FragmentActivity
 ) : RecyclerView.Adapter<FragmentSecondRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(val itemBinding: FragmentSecondReviewItemBinding) :
@@ -79,7 +80,7 @@ class FragmentSecondRecyclerViewAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemBinding.frSecondTextView.text = dataSet[position].text
 
-        Glide.with(fragmentActivity)
+        Glide.with(activity)
             .load("https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg")
             .into(viewHolder.itemBinding.frSecondImageView)
     }
