@@ -38,7 +38,7 @@ class FragmentSecondReview : Fragment() {
 
 data class FragmentTalentList(val text: String)
 
-class FragmentSecondRecyclerViewAdapter(private val dataSet: List<FragmentTalentList>) :
+class FragmentSecondRecyclerViewAdapter(private var dataSet: List<FragmentTalentList>) :
     RecyclerView.Adapter<FragmentSecondRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(val itemBinding: FragmentSecondReviewItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {}
@@ -56,6 +56,10 @@ class FragmentSecondRecyclerViewAdapter(private val dataSet: List<FragmentTalent
 
     override fun getItemCount() = dataSet.size
 
+    fun setData(newData: List<FragmentTalentList>) {
+        dataSet = newData
+        notifyDataSetChanged()
+    }
 }
 
 class FragmentSecondViewModel : ViewModel() {
