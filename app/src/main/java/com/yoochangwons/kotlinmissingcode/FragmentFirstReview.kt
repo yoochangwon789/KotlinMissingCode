@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,14 +39,12 @@ class FragmentFirstReview : Fragment() {
 
         binding.frFirstRecyclerView.apply {
             adapter = FragmentFirstRecyclerViewAdapter(
-                model.fragmentFirstTodoArrayList,
+                emptyList(),
                 fragmentToggleIcon = {
                     model.fragmentToggleTodoList(it)
-                    binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
                 },
                 fragmentDeleteIcon = {
                     model.fragmentDeleteTodoList(it)
-                    binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
                 }
             )
             layoutManager = LinearLayoutManager(activity)
@@ -53,7 +53,12 @@ class FragmentFirstReview : Fragment() {
         binding.frFirstButton.setOnClickListener {
             val todoList = binding.frFirstEditText.text.toString()
             model.fragmentAddTodoList(FragmentTodoList(todoList))
-            binding.frFirstRecyclerView.adapter?.notifyDataSetChanged()
+        }
+
+        activity?.let {
+            model.fragmentFirstLiveData.observe(it, Observer {
+                ((binding.frFirstRecyclerView.adapter) as FragmentFirstRecyclerViewAdapter).setData(it)
+            })
         }
     }
 
@@ -66,7 +71,7 @@ class FragmentFirstReview : Fragment() {
 data class FragmentTodoList(val text: String, var isDone: Boolean = false)
 
 class FragmentFirstRecyclerViewAdapter(
-    private val dataSet: List<FragmentTodoList>,
+    private var dataSet: List<FragmentTodoList>,
     private val fragmentToggleIcon: (todoList : FragmentTodoList) -> Unit,
     private val fragmentDeleteIcon: (todoList : FragmentTodoList) -> Unit
 ) : RecyclerView.Adapter<FragmentFirstRecyclerViewAdapter.ViewHolder>() {
@@ -107,21 +112,30 @@ class FragmentFirstRecyclerViewAdapter(
     override fun getItemCount(): Int {
         return dataSet.size
     }
+
+    fun setData(newData: List<FragmentTodoList>) {
+        dataSet = newData
+        notifyDataSetChanged()
+    }
 }
 
 class FragmentFirstViewModel : ViewModel() {
+    val fragmentFirstLiveData = MutableLiveData<List<FragmentTodoList>>()
 
-    val fragmentFirstTodoArrayList = ArrayList<FragmentTodoList>()
+    private val fragmentFirstTodoArrayList = ArrayList<FragmentTodoList>()
 
     fun fragmentAddTodoList(todoList: FragmentTodoList) {
         fragmentFirstTodoArrayList.add(todoList)
+        fragmentFirstLiveData.value = fragmentFirstTodoArrayList
     }
 
     fun fragmentToggleTodoList(todoList: FragmentTodoList) {
         todoList.isDone = !todoList.isDone
+        fragmentFirstLiveData.value = fragmentFirstTodoArrayList
     }
 
     fun fragmentDeleteTodoList(todoList: FragmentTodoList) {
         fragmentFirstTodoArrayList.remove(todoList)
+        fragmentFirstLiveData.value = fragmentFirstTodoArrayList
     }
 }
