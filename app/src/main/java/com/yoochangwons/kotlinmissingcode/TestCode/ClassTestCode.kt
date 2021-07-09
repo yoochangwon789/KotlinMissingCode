@@ -15,6 +15,10 @@ private class ClassTestCode() {
         this.age = age
         this.name = name
     }
+
+    fun sum(a: Int, b: Int): Int {
+        return a + b
+    }
 }
 
 fun main(array: Array<String>) {
@@ -34,6 +38,8 @@ fun main(array: Array<String>) {
     classTestCode1.age = 10
 
     // age 가 null 이 아니라면 let 코드를 출력
-    classTestCode1.age?.let { classTestCode1.age = 30 }
+    classTestCode1.age.let { classTestCode1.age = 30 }
+    val sum = classTestCode1.age.also { classTestCode1.sum(1, 2) }
     println(classTestCode1.age)
+    println(sum)
 }
