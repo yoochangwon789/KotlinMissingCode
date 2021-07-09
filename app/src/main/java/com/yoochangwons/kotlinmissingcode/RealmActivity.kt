@@ -42,7 +42,9 @@ class RealmActivity : AppCompatActivity() {
             }
         }
         realm_delete.setOnClickListener {
-
+            realm.executeTransaction {
+                it.where(School::class.java).findAll().deleteAllFromRealm()
+            }
         }
     }
 }
