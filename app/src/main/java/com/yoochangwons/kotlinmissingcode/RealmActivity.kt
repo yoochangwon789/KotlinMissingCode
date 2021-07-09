@@ -2,6 +2,7 @@ package com.yoochangwons.kotlinmissingcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_realm.*
@@ -33,7 +34,11 @@ class RealmActivity : AppCompatActivity() {
             }
         }
         realm_load.setOnClickListener {
-
+            // realm 을 실행(executeTransaction) -> where 문법으로 원하는 클래스 탐색 -> findFirst 첫번째 데이터 가져온다
+            realm.executeTransaction {
+                val data = it.where(School::class.java).findFirst()
+                Log.d("dataa", " data$data")
+            }
         }
         realm_delete.setOnClickListener {
 
