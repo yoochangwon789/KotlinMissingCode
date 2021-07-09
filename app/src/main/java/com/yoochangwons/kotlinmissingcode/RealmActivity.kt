@@ -18,6 +18,7 @@ class RealmActivity : AppCompatActivity() {
         val config: RealmConfiguration = RealmConfiguration
             .Builder()
             .deleteRealmIfMigrationNeeded()
+            .allowWritesOnUiThread(true)
             .build()
         Realm.setDefaultConfiguration(config)
         // Realm 을 얻어오는 방법
