@@ -6,12 +6,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ProgressBar
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_async.*
 import java.lang.Exception
 
 class AsyncActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_async)
+
+        var backGroundAsyncTask: BackGroundAsyncTask? = null
+
+        start.setOnClickListener {
+            backGroundAsyncTask = BackGroundAsyncTask(progressbar, ment)
+            backGroundAsyncTask?.execute()
+        }
+
+        stop.setOnClickListener {
+            backGroundAsyncTask?.cancel(true)
+        }
     }
 }
 
@@ -39,7 +51,7 @@ class BackGroundAsyncTask(
             percent++
             if (percent > 100) break
             // value 값이 onProgressUpdate 에 value 의 들어간다
-            else onProgressUpdate(percent)
+            else publishProgress(percent)
 
             // Thread 로 잠재운다
             try {
