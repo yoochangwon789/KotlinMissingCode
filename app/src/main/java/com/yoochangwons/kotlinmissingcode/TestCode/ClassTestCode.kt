@@ -1,4 +1,4 @@
-package com.yoochangwons.kotlinmissingcode
+package com.yoochangwons.kotlinmissingcode.TestCode
 
 private class ClassTestCode() {
     var id: Int? = null
@@ -23,8 +23,6 @@ fun main(array: Array<String>) {
     val classTestCode2 = ClassTestCode(1, 2)
     val classTestCode3 = ClassTestCode(1, 2, "IU")
 
-    classTestCode1.id = 1
-    classTestCode1.age = 26
     classTestCode1.name = "유창원"
 
     classTestCode2.name = "신예은"
@@ -32,4 +30,10 @@ fun main(array: Array<String>) {
     println(classTestCode1.name)
     println(classTestCode2.name)
     println(classTestCode3.name)
+
+    classTestCode1.age = 10
+
+    // age 가 null 이 아니라면 let 코드를 출력
+    classTestCode1.age?.let { classTestCode1.age = 30 }
+    println(classTestCode1.age)
 }
