@@ -12,9 +12,13 @@ class RealmActivity : AppCompatActivity() {
 
         // Realm 초기화 작업
         Realm.init(this)
+        // Migration -> 데이터 베이스 용어 -> 동기화를 시켜주겠다.
         val config: RealmConfiguration = RealmConfiguration
             .Builder()
             .deleteRealmIfMigrationNeeded()
             .build()
+        Realm.setDefaultConfiguration(config)
+        // Realm 을 얻어오는 방법
+        val ream = Realm.getDefaultInstance()
     }
 }
