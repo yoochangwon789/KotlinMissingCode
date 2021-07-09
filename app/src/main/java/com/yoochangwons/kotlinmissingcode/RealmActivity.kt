@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import kotlinx.android.synthetic.main.activity_realm.*
 
 class RealmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +20,23 @@ class RealmActivity : AppCompatActivity() {
             .build()
         Realm.setDefaultConfiguration(config)
         // Realm 을 얻어오는 방법
-        val ream = Realm.getDefaultInstance()
+        val realm = Realm.getDefaultInstance()
+
+        realm_save.setOnClickListener {
+            // realm 을 실행(executeTransaction) -> class 를 가져온다(createObject) -> with 문법으로
+            // 코드 간결과 하여 this 키워드 사용
+            realm.executeTransaction {
+                with(it.createObject(School::class.java)) {
+                    this.name = "어떤 대학교"
+                    this.location = "서울"
+                }
+            }
+        }
+        realm_load.setOnClickListener {
+
+        }
+        realm_delete.setOnClickListener {
+
+        }
     }
 }
