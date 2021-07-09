@@ -18,10 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RealmActivity">
-
-        </activity>
-        <activity android:name=".TabPagerReviewActivity"></activity>
+        <activity android:name=".RealmActivity"></activity>
+        <activity android:name=".TabPagerReviewActivity" />
         <activity android:name=".SharedPreferenceActivity" />
         <activity android:name=".TabPagerTwoActivity" />
         <activity android:name=".TabPagerActivity" />

@@ -1,0 +1,45 @@
+
+
+
+09. Network
+
+DataBase <-----> Server <-----> Client(app, web)
+
+Local DataBase 의 한계
+- 동기화가 어렵다
+- 상호작용이 불가능 하다
+
+
+서버와 통신하는 방법
+    - 해당 URL 로 요청한다
+    - 인증정보를 보낸다
+    - JSON 형식을 사용해서 Data 를 보낸다
+    - JSON(JavaScript Object Notation) -> 자바스크립트에서 객체를 만들 때 표현식 이다
+
+
+JSON
+    - [] -> List
+    - {} -> 객체
+    - "" -> 문자열
+    - ""없으면 -> 숫자
+
+JSON Parsing
+-> JSON 을 코틀린이나 자바가 이해할 수 있게 변형 하는 과정
+
+Serializable(직렬화)
+-> 자바 시스템 내부에서 사용되는 object 를 외부 에서 사용할 수 있도로 byte 형태로 데이터로 바꾸는 것
+
+ex) --------------------------> 하나의 꼬치로 값을 가져오고 ->
+    id, age, name, intro
+
+ -> 코틀린이나/ 자바가 이해할 수 있는 틀로 변환해서 사용
+    - class 를 사용한다
+
+-> 클래스의 변수명 이름과 같이 만들어 놓는다
+-> 변수명과 data 가 같은 이름을 찾고 사용한다
+class Person(
+    var id: Int? = null
+    var name: String? = null
+    var age: Int? = null
+    var intro: String? = null
+)
