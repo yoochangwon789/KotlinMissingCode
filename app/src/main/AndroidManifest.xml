@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
+        <activity android:name=".RealmActivity"></activity>
         <activity android:name=".TabPagerReviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SharedPreferenceActivity">
-
-        </activity>
-        <activity android:name=".TabPagerTwoActivity"></activity>
+        <activity android:name=".SharedPreferenceActivity"></activity>
+        <activity android:name=".TabPagerTwoActivity" />
         <activity android:name=".TabPagerActivity" />
         <activity android:name=".RecyclerViewActivity" />
         <activity android:name=".ListViewActivity" />
