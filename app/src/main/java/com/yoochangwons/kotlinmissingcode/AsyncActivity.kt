@@ -1,20 +1,24 @@
 package com.yoochangwons.kotlinmissingcode
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_async.*
 import java.lang.Exception
 
 class AsyncActivity : AppCompatActivity() {
+
+    var backGroundAsyncTask: BackGroundAsyncTask? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_async)
 
-        var backGroundAsyncTask: BackGroundAsyncTask? = null
 
         start.setOnClickListener {
             backGroundAsyncTask = BackGroundAsyncTask(progressbar, ment)
@@ -22,8 +26,14 @@ class AsyncActivity : AppCompatActivity() {
         }
 
         stop.setOnClickListener {
-            backGroundAsyncTask?.cancel(true)
+//            backGroundAsyncTask?.cancel(true)
+            startActivity(Intent(this, Intent2::class.java))
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        backGroundAsyncTask?.cancel(true)
     }
 }
 
@@ -49,6 +59,7 @@ class BackGroundAsyncTask(
         while (isCancelled == false) {
             // 취소가 되지 않았다면 percent 를 올려주겠다
             percent++
+            Log.d("async", "value : $percent")
             if (percent > 100) break
             // value 값이 onProgressUpdate 에 value 의 들어간다
             else publishProgress(percent)
