@@ -42,4 +42,10 @@ fun main(array: Array<String>) {
     val sum = classTestCode1.age.also { classTestCode1.sum(1, 2) }
     println(classTestCode1.age)
     println(sum)
+
+    val funType: (Int, Int) -> Int = { i: Int, i2: Int ->
+        classTestCode1.sum(i, i2)
+    }
+
+    println(funType(1,2))
 }
