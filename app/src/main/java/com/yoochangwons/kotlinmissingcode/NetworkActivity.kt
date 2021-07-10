@@ -1,5 +1,6 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,13 @@ class NetworkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_network)
 
+        NetWorkTask().execute()
+    }
+}
+
+class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
+
+    override fun doInBackground(vararg params: Any?): Any? {
         val urlString: String = "http://mellowcode.org/json/student"
         val url: URL = URL(urlString)
         val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -23,6 +31,8 @@ class NetworkActivity : AppCompatActivity() {
         // value -> application/json
         connection.setRequestProperty("Content-Type", "application/json")
 
+        // NetWork 는 비동기 처리 방식으로 진행해야 한다
+        // Why? 메인 쓰레드 Exception 발생 때문
         var buffer = ""
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             Log.d("connn", "inputstream : ${connection.inputStream}")
@@ -33,5 +43,6 @@ class NetworkActivity : AppCompatActivity() {
             )
             buffer = reader.readLine()
         }
+        return null
     }
 }
