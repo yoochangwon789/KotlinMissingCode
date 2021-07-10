@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -51,6 +52,11 @@ class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
             Log.d("connn", "inputstream : $buffer")
         }
 
+        // Gson 라이브러리로 json 데이터를 객체로 받기 위한 작업
+        // But json 데이터를 받을 때 List 타입으로 들어와서 에러가 발생!!
+        // 타입을 변경해야 한다.
+        val data = Gson().fromJson(buffer, Array<PersonFromServer>::class.java)
+        Log.d("connn", "data : $data")
 
 
         return null
