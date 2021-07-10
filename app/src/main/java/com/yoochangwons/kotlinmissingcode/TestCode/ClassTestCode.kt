@@ -19,6 +19,12 @@ private class ClassTestCode() {
     fun sum(a: Int, b: Int): Int {
         return a + b
     }
+
+    fun test() : Int{
+        val idTest = 3
+        id = idTest
+        return id as Int
+    }
 }
 
 fun main(array: Array<String>) {
@@ -47,5 +53,6 @@ fun main(array: Array<String>) {
         classTestCode1.sum(i, i2)
     }
 
+    println(classTestCode1.test())
     println(funType(1,2))
 }

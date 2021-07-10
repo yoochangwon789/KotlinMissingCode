@@ -1,16 +1,19 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.content.Context
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_net_work_recycler_view.*
 import java.io.BufferedReader
-import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -20,14 +23,26 @@ class NetWorkRecyclerViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_net_work_recycler_view)
 
+        val netWorkRecyclerViewTask = NetWorkRecyclerViewTask(net_work_recycler_view, this)
+        netWorkRecyclerViewTask.execute()
+
     }
 }
 
-class NetWorkRecyclerViewTask : AsyncTask<Any?, Any?, Any?>() {
+class NetWorkRecyclerViewTask(
+    val recyclerView: RecyclerView,
+    val context: Context
+) : AsyncTask<Any?, Any?, Array<PersonFromServer>?>() {
 
-    override fun doInBackground(vararg params: Any?): Any? {
+    override fun onPostExecute(result: Array<PersonFromServer>?) {
+        val adapter = NetWorkRecyclerViewAdapter(result!!)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun doInBackground(vararg params: Any?): Array<PersonFromServer>? {
         val urlString = "http://mellowcode.org/json/students/"
-        val url : URL = URL(urlString)
+        val url: URL = URL(urlString)
         val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
 
         connection.requestMethod = "GET"
@@ -43,9 +58,7 @@ class NetWorkRecyclerViewTask : AsyncTask<Any?, Any?, Any?>() {
             buffer = reader.readLine()
         }
 
-        val jsonData = Gson().fromJson(buffer, Array<PersonFromServer>::class.java)
-
-        return null
+        return Gson().fromJson(buffer, Array<PersonFromServer>::class.java)
     }
 }
 
