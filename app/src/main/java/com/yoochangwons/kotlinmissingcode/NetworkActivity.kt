@@ -50,6 +50,9 @@ class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
             buffer = reader.readLine()
             Log.d("connn", "inputstream : $buffer")
         }
+
+
+
         return null
     }
 }
