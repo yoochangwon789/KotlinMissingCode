@@ -11,16 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
-        <activity android:name=".NetworkActivity">
+        <activity android:name=".NetWorkRecyclerViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AsyncActivity">
+        <activity android:name=".NetworkActivity">
 
         </activity>
+        <activity android:name=".AsyncActivity"></activity>
         <activity android:name=".RealmActivity" />
         <activity android:name=".TabPagerReviewActivity" />
         <activity android:name=".SharedPreferenceActivity" />
