@@ -58,6 +58,8 @@ class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
         val data = Gson().fromJson(buffer, Array<PersonFromServer>::class.java)
         Log.d("connn", "data : $data")
 
+        val age = data[0].age
+        Log.d("connn", "age : $age")
 
         return null
     }
