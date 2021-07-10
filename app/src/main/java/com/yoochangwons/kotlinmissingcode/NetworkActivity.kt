@@ -21,23 +21,23 @@ class NetworkActivity : AppCompatActivity() {
 class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
 
     override fun doInBackground(vararg params: Any?): Any? {
-        val urlString: String = "http://mellowcode.org/json/student"
+        val urlString: String = "http://mellowcode.org/json/students/"
         val url: URL = URL(urlString)
         val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
 
         connection.requestMethod = "GET"
+
         // Header 작성
         // Key -> Content-Type
         // value -> application/json
         connection.setRequestProperty("Content-Type", "application/json")
-
-        Log.d("ddd", "ddd")
 
         // NetWork 는 비동기 처리 방식으로 진행해야 한다
         // Why? 메인 쓰레드 Exception 발생 때문
         var buffer = ""
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             Log.d("connn", "inputstream : ${connection.inputStream}")
+
             // BufferedReader -> 한번에 읽어준다 -> Buffer 을 사용해야 컴퓨터가 빠르게 처리 가능
             val reader = BufferedReader(
                 // InputStreamReader -> 입력 흐름을 읽을 수 있다
@@ -46,8 +46,9 @@ class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
                     connection.inputStream, "UTF-8"
                 )
             )
+
             buffer = reader.readLine()
-            Log.d("buffer", "inputstream : $buffer")
+            Log.d("connn", "inputstream : $buffer")
         }
         return null
     }
