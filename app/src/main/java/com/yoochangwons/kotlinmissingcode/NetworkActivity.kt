@@ -31,17 +31,23 @@ class NetWorkTask() : AsyncTask<Any?, Any?, Any,>() {
         // value -> application/json
         connection.setRequestProperty("Content-Type", "application/json")
 
+        Log.d("ddd", "ddd")
+
         // NetWork 는 비동기 처리 방식으로 진행해야 한다
         // Why? 메인 쓰레드 Exception 발생 때문
         var buffer = ""
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             Log.d("connn", "inputstream : ${connection.inputStream}")
+            // BufferedReader -> 한번에 읽어준다 -> Buffer 을 사용해야 컴퓨터가 빠르게 처리 가능
             val reader = BufferedReader(
+                // InputStreamReader -> 입력 흐름을 읽을 수 있다
+                // 인자로 connection 의 입력 스트림을 가져오고, connection.inputStream 을 읽겠다 는 의미
                 InputStreamReader(
                     connection.inputStream, "UTF-8"
                 )
             )
             buffer = reader.readLine()
+            Log.d("buffer", "inputstream : $buffer")
         }
         return null
     }
