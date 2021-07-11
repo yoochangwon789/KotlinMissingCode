@@ -88,10 +88,10 @@ class NetWorkRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textViewId?.text = dataSet[position].id.toString()
-        viewHolder.textViewName?.text = dataSet[position].name
-        viewHolder.textViewAge?.text = dataSet[position].age.toString()
-        viewHolder.textViewIntro?.text = dataSet[position].intro
+        viewHolder.textViewId?.text = "ID : " + dataSet[position].id.toString()
+        viewHolder.textViewName?.text = "name : " + dataSet[position].name
+        viewHolder.textViewAge?.text = "age : " + dataSet[position].age.toString()
+        viewHolder.textViewIntro?.text = "intro : " + dataSet[position].intro
     }
 
     override fun getItemCount() = dataSet.size
