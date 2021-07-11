@@ -2,30 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#A381DF">
 
     <TextView
         android:id="@+id/data_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/data_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/data_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/data_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp" />
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>
