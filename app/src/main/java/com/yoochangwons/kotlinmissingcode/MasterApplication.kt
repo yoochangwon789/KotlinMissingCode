@@ -30,10 +30,16 @@ class MasterApplication : Application() {
         // -> 다시 가로챈 데이터를 보내준다
         val header = Interceptor {
             val original = it.request()
-            val request = original.newBuilder()
-                .header("Authorization", "")
-                .build()
-            it.proceed(request)
+            if (checkIsLogIn()) {
+                // Login 이 되었을 때
+                val request = original.newBuilder()
+                    .header("Authorization", "")
+                    .build()
+                it.proceed(request)
+            } else {
+                // Login 이 되어있지 않을 때
+                it.proceed(original)
+            }
         }
 
         val client = OkHttpClient.Builder()
@@ -55,5 +61,13 @@ class MasterApplication : Application() {
         val token = sp.getString("login_sp", "null")
 
         return token != "null"
+    }
+
+    fun getUserToken(): String? {
+        val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
+        val token = sp.getString("login_sp", "null")
+
+        return if (token =="null") null
+        else token
     }
 }
