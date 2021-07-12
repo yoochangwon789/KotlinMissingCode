@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -21,10 +22,11 @@ class MasterApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Stetho.initializeWithDefaults(this)
         createRetrofit()
     }
 
-    fun createRetrofit() {
+    private fun createRetrofit() {
         // Interceptor -> 통신을 가로 채는 기능 으로 응답된 데이터를 가로채고
         // -> 가로챈 데이터에 Header 를 입힌다 -> 그리고 빌드 해주고
         // -> 다시 가로챈 데이터를 보내준다
@@ -58,14 +60,14 @@ class MasterApplication : Application() {
     }
 
     @SuppressLint("CommitPrefEdits")
-    fun checkIsLogIn(): Boolean {
+    private fun checkIsLogIn(): Boolean {
         val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
         val token = sp.getString("login_sp", "null")
 
         return token != "null"
     }
 
-    fun getUserToken(): String? {
+    private fun getUserToken(): String? {
         val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
         val token = sp.getString("login_sp", "null")
 
