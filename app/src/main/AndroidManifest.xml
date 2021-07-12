@@ -3,6 +3,7 @@
     package="com.yoochangwons.kotlinmissingcode">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -11,17 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
-        <activity android:name=".RetrofitRecyclerView">
+        <activity android:name=".PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RetrofitActivity">
+        <activity android:name=".RetrofitRecyclerView">
 
         </activity>
-        <activity android:name=".NetWorkRecyclerViewActivity"></activity>
+        <activity android:name=".RetrofitActivity"></activity>
+        <activity android:name=".NetWorkRecyclerViewActivity" />
         <activity android:name=".NetworkActivity" />
         <activity android:name=".AsyncActivity" />
         <activity android:name=".RealmActivity" />
