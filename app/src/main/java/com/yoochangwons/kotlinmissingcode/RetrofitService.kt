@@ -1,9 +1,7 @@
 package com.yoochangwons.kotlinmissingcode
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 // API 가 변하는 부분을 관리해 주면 된다
 // interface 으로 만드는 이유은 retrofit 의 설명서 양식이기 때문
@@ -25,7 +23,10 @@ interface RetrofitService {
     ) : Call<PersonFromServer>
 
     @POST("user/signup/")
+    @FormUrlEncoded
     fun register(
-        @Body register: Register
+        @Field("username")username: String,
+        @Field("password1")password1: String,
+        @Field("password2")password2: String
     ) : Call<User>
 }

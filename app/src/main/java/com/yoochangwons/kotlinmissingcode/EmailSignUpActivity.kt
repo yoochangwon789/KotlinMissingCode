@@ -26,7 +26,7 @@ class EmailSignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_email_sign_up)
 
         initView(this)
-        setUpListener(this)
+        setUpListener()
     }
 
     fun initView(activity: Activity) {
@@ -36,9 +36,9 @@ class EmailSignUpActivity : AppCompatActivity() {
         registerBtn = activity.findViewById(R.id.register)
     }
 
-    fun setUpListener(activity: Activity) {
+    fun setUpListener() {
         registerBtn.setOnClickListener {
-            register(activity)
+            register(this@EmailSignUpActivity)
         }
     }
 
@@ -46,19 +46,22 @@ class EmailSignUpActivity : AppCompatActivity() {
         val userName = userNameView.text.toString()
         val password1 = userPassword1View.text.toString()
         val password2 = userPassword2View.text.toString()
-        val register = Register(userName, password1, password2)
 
-        (application as MasterApplication).service.register(register).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                Toast.makeText(activity, "가입에 성공 하였습니다.", Toast.LENGTH_LONG).show()
-                val user = response.body()
-                val token = user?.token
-            }
+        (application as MasterApplication).service.register(userName, password1, password2)
+            .enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(activity, "가입에 성공 하였습니다.", Toast.LENGTH_LONG).show()
+                        val user = response.body()
+                        val token = user!!.token!!
+                        saveToken(token, activity)
+                    }
+                }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(activity, "가입에 실패 했습니다.", Toast.LENGTH_LONG).show()
-            }
-        })
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Toast.makeText(activity, "가입에 실패 했습니다.", Toast.LENGTH_LONG).show()
+                }
+            })
     }
 
     @SuppressLint("CommitPrefEdits")
