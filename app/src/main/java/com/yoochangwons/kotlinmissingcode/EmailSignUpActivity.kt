@@ -24,4 +24,16 @@ class EmailSignUpActivity : AppCompatActivity() {
         userPassword1View = activity.findViewById(R.id.password1_input_box)
         userPassword2View = activity.findViewById(R.id.password2_input_box)
     }
+
+    fun getUserName(): String {
+        return userNameView.text.toString()
+    }
+
+    fun getUserPassword1(): String {
+        return userPassword1View.text.toString()
+    }
+
+    fun getUserPassword2(): String {
+        return userPassword2View.text.toString()
+    }
 }
