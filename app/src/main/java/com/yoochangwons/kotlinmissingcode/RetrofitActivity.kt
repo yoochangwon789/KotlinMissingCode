@@ -52,24 +52,25 @@ class RetrofitActivity : AppCompatActivity() {
         })
 
         // POST 요청
-        val params = HashMap<String, Any>()
-        params.put("name", "아이유")
-        params.put("age", 20)
-        params.put("intro", "안녕하세요")
-        service.createStudent(params).enqueue(object : Callback<PersonFromServer> {
-            override fun onResponse(
-                call: Call<PersonFromServer>,
-                response: Response<PersonFromServer>
-            ) {
-                if (response.isSuccessful) {
-                    val person = response.body()
-                    Log.d("retrofitt", "name : ${person?.name}")
-                }
-            }
+//        val params = HashMap<String, Any>()
+//        params.put("name", "아이유")
+//        params.put("age", 20)
+//        params.put("intro", "안녕하세요")
+//        service.createStudent(params).enqueue(object : Callback<PersonFromServer> {
+//            override fun onResponse(
+//                call: Call<PersonFromServer>,
+//                response: Response<PersonFromServer>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val person = response.body()
+//                    Log.d("retrofitt", "name : ${person?.name}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PersonFromServer>, t: Throwable) {
+//            }
+//        })
 
-            override fun onFailure(call: Call<PersonFromServer>, t: Throwable) {
-            }
-        })
-
+        // POST 요청 2
     }
 }

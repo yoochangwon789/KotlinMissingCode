@@ -18,4 +18,9 @@ interface RetrofitService {
     fun createStudent(
         @Body params : HashMap<String, Any>
     ) : Call<PersonFromServer>
+
+    @POST
+    fun createStudentEasy(
+        @Body person : PersonFromServer
+    ) : Call<PersonFromServer>
 }
