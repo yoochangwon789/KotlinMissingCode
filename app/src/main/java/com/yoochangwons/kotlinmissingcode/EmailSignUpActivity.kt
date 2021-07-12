@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -20,13 +21,14 @@ class EmailSignUpActivity : AppCompatActivity() {
     lateinit var userPassword1View: EditText
     lateinit var userPassword2View: EditText
     lateinit var registerBtn: TextView
+    lateinit var loginBtn: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_email_sign_up)
 
         initView(this)
-        setUpListener()
+        setUpListener(this)
     }
 
     fun initView(activity: Activity) {
@@ -34,11 +36,18 @@ class EmailSignUpActivity : AppCompatActivity() {
         userPassword1View = activity.findViewById(R.id.password1_input_box)
         userPassword2View = activity.findViewById(R.id.password2_input_box)
         registerBtn = activity.findViewById(R.id.register)
+        loginBtn = activity.findViewById(R.id.login_btn)
     }
 
-    fun setUpListener() {
+    @SuppressLint("CommitPrefEdits")
+    fun setUpListener(activity: Activity) {
         registerBtn.setOnClickListener {
-            register(this@EmailSignUpActivity)
+            register(activity)
+        }
+        loginBtn.setOnClickListener {
+            val sp = activity.getSharedPreferences("login_sp", Context.MODE_PRIVATE)
+            val token = sp.getString("login_sp", "")
+            Log.d("abcc", "token : $token")
         }
     }
 
