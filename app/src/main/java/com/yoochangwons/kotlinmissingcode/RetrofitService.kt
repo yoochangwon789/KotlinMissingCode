@@ -9,6 +9,6 @@ interface RetrofitService {
     
     // 원하는 Mapping -> Get 을 만들어주고 함수를 생성 후 원하는 return 타입을 설정
     // call 이라는 제너리타입 안에 return 타입을 설정
-    @GET("json/student/")
+    @GET("json/students/")
     fun getStudentsList(): Call<ArrayList<PersonFromServer>>
 }
