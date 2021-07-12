@@ -1,6 +1,9 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -44,5 +47,13 @@ class MasterApplication : Application() {
             .client(client)
             .build()
         service = retrofit.create(RetrofitService::class.java)
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    fun checkIsLogIn(): Boolean {
+        val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
+        val token = sp.getString("login_sp", "null")
+
+        return token != "null"
     }
 }
