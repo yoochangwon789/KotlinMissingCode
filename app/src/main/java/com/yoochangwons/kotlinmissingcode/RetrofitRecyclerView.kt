@@ -51,26 +51,6 @@ class RetrofitRecyclerView : AppCompatActivity() {
     }
 }
 
-//class RetrofitAsyncTask(
-//    recyclerView: RecyclerView,
-//    context: Context
-//) : AsyncTask<Any?, Any?, ArrayList<PersonFromServer>>() {
-//
-//    override fun onPostExecute(result: ArrayList<PersonFromServer>?) {
-//        super.onPostExecute(result)
-//    }
-//
-//    override fun doInBackground(vararg params: Any?): ArrayList<PersonFromServer> {
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("http://mellowcode.org/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//        val service = retrofit.create(RetrofitService::class.java)
-//
-//    }
-//}
-
 class RetrofitRecyclerViewAdapter(
     private var dataSet: ArrayList<PersonFromServer>?
 ) : RecyclerView.Adapter<RetrofitRecyclerViewAdapter.ViewHolder>() {
