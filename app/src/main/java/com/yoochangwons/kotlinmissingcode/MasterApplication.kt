@@ -21,7 +21,7 @@ class MasterApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-
+        createRetrofit()
     }
 
     fun createRetrofit() {
@@ -31,11 +31,13 @@ class MasterApplication : Application() {
         val header = Interceptor {
             val original = it.request()
             if (checkIsLogIn()) {
-                // Login 이 되었을 때
-                val request = original.newBuilder()
-                    .header("Authorization", "")
-                    .build()
-                it.proceed(request)
+                getUserToken()?.let { token ->
+                    // Login 이 되었을 때
+                    val request = original.newBuilder()
+                        .header("Authorization", "token " + token)
+                        .build()
+                    it.proceed(request)
+                }
             } else {
                 // Login 이 되어있지 않을 때
                 it.proceed(original)
@@ -67,7 +69,7 @@ class MasterApplication : Application() {
         val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
         val token = sp.getString("login_sp", "null")
 
-        return if (token =="null") null
+        return if (token == "null") null
         else token
     }
 }
