@@ -3,6 +3,7 @@ package com.yoochangwons.kotlinmissingcode
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.app.Person
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,5 +73,20 @@ class RetrofitActivity : AppCompatActivity() {
 //        })
 
         // POST 요청 2
+        val person = PersonFromServer(name = "신예은", age = 20, intro = "안녕하세요 신예은 입니다")
+        service.createStudentEasy(person).enqueue(object : Callback<PersonFromServer> {
+            override fun onResponse(
+                call: Call<PersonFromServer>,
+                response: Response<PersonFromServer>
+            ) {
+                if (response.isSuccessful) {
+                    val personBody = response.body()
+                    Log.d("retrofitt", "name : ${personBody?.name}")
+                }
+            }
+
+            override fun onFailure(call: Call<PersonFromServer>, t: Throwable) {
+            }
+        })
     }
 }

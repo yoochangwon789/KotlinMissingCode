@@ -19,7 +19,7 @@ interface RetrofitService {
         @Body params : HashMap<String, Any>
     ) : Call<PersonFromServer>
 
-    @POST
+    @POST("json/students/")
     fun createStudentEasy(
         @Body person : PersonFromServer
     ) : Call<PersonFromServer>
