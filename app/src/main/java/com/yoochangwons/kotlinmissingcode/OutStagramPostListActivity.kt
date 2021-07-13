@@ -27,7 +27,7 @@ class OutStagramPostListActivity : AppCompatActivity() {
 class PostAdapter(
     private val dataSet: ArrayList<Post>,
     private val glide: RequestManager
-) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+    ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var postOwner: TextView? = null
