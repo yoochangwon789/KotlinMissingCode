@@ -26,7 +26,7 @@ class MasterApplication : Application() {
         createRetrofit()
     }
 
-    private fun createRetrofit() {
+    fun createRetrofit() {
         // Interceptor -> 통신을 가로 채는 기능 으로 응답된 데이터를 가로채고
         // -> 가로챈 데이터에 Header 를 입힌다 -> 그리고 빌드 해주고
         // -> 다시 가로챈 데이터를 보내준다

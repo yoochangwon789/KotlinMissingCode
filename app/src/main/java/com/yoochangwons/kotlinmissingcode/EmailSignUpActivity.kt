@@ -52,9 +52,9 @@ class EmailSignUpActivity : AppCompatActivity() {
     }
 
     fun register(activity: Activity) {
-        val userName = userNameView.text.toString()
-        val password1 = userPassword1View.text.toString()
-        val password2 = userPassword2View.text.toString()
+        val userName = getUserName()
+        val password1 = getUserPassword1()
+        val password2 = getUserPassword2()
 
         (application as MasterApplication).service.register(userName, password1, password2)
             .enqueue(object : Callback<User> {
@@ -64,6 +64,7 @@ class EmailSignUpActivity : AppCompatActivity() {
                         val user = response.body()
                         val token = user!!.token!!
                         saveToken(token, activity)
+                        (application as MasterApplication).createRetrofit()
                     }
                 }
 
