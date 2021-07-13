@@ -3,6 +3,7 @@ package com.yoochangwons.kotlinmissingcode
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -45,9 +46,9 @@ class EmailSignUpActivity : AppCompatActivity() {
             register(activity)
         }
         loginBtn.setOnClickListener {
-            val sp = activity.getSharedPreferences("login_sp", Context.MODE_PRIVATE)
-            val token = sp.getString("login_sp", "")
-            Log.d("abcc", "token : $token")
+            startActivity(
+                Intent(activity, LoginActivity::class.java)
+            )
         }
     }
 
