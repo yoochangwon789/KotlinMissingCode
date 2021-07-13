@@ -38,6 +38,9 @@ class LoginActivity : AppCompatActivity() {
                             this@LoginActivity, "로그인 하셨습니다.",
                             Toast.LENGTH_LONG
                         ).show()
+                        startActivity(
+                            Intent(this@LoginActivity, OutStagramPostListActivity::class.java)
+                        )
                     }
                 }
 
