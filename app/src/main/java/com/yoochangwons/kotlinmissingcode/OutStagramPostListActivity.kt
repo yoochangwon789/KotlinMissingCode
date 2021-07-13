@@ -8,9 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import kotlinx.android.synthetic.main.activity_out_stagram_post_list.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OutStagramPostListActivity : AppCompatActivity() {
 
@@ -21,13 +26,32 @@ class OutStagramPostListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_out_stagram_post_list)
 
         glide = Glide.with(this)
+
+        (application as MasterApplication).service.getAllPosts()
+            .enqueue(object : Callback<ArrayList<Post>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Post>>,
+                    response: Response<ArrayList<Post>>
+                ) {
+                    if (response.isSuccessful) {
+                        val postList = response.body()
+                        val adapter = PostAdapter(postList!!, glide)
+                        post_recycler_view.adapter = adapter
+                        post_recycler_view.layoutManager =
+                            LinearLayoutManager(this@OutStagramPostListActivity)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+                }
+            })
     }
 }
 
 class PostAdapter(
     private val dataSet: ArrayList<Post>,
     private val glide: RequestManager
-    ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var postOwner: TextView? = null
