@@ -52,6 +52,18 @@ class OutStagramPostListActivity : AppCompatActivity() {
                 Intent(this, OutStagramUserInfo::class.java)
             )
         }
+
+        my_list.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramMyPostListActivity::class.java)
+            )
+        }
+
+        upload.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUploadActivity::class.java)
+            )
+        }
     }
 }
 

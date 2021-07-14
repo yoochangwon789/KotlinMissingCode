@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
-        <activity android:name=".OutStagramUserInfo"></activity>
+        <activity android:name=".OutStagramUploadActivity"></activity>
+        <activity android:name=".OutStagramMyPostListActivity" />
+        <activity android:name=".OutStagramUserInfo" />
         <activity android:name=".OutStagramPostListActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".EmailSignUpActivity">
