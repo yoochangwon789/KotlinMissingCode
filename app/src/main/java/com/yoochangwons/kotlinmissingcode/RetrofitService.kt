@@ -1,5 +1,7 @@
 package com.yoochangwons.kotlinmissingcode
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -39,4 +41,11 @@ interface RetrofitService {
 
     @GET("/instagram/post/list/all/")
     fun getAllPosts(): Call<ArrayList<Post>>
+
+    @Multipart
+    @POST("/instagram/post/")
+    fun upLoadPost(
+        @Part image: MultipartBody.Part,
+        @Part ("content")requestBody : RequestBody
+    ) :Call<Post>
 }
