@@ -1,6 +1,7 @@
 package com.yoochangwons.kotlinmissingcode
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,6 +46,12 @@ class OutStagramPostListActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 }
             })
+
+        user_info.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUserInfo::class.java)
+            )
+        }
     }
 }
 
