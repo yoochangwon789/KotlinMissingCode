@@ -60,7 +60,7 @@ class MasterApplication : Application() {
     }
 
     @SuppressLint("CommitPrefEdits")
-    private fun checkIsLogIn(): Boolean {
+    fun checkIsLogIn(): Boolean {
         val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
         val token = sp.getString("login_sp", "null")
 

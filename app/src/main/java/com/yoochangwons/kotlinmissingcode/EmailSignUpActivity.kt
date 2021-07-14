@@ -26,10 +26,22 @@ class EmailSignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_email_sign_up)
 
-        initView(this)
-        setUpListener(this)
+        // 로그인 되어 있는 경우 바로 PostActivity 로 보내주면 된다
+        // checkIsLogIn 이 true 인 경우
+        if ((application as MasterApplication).checkIsLogIn()) {
+            // 로그인이 되었을 경우
+            finish()
+            startActivity(
+                Intent(this, OutStagramPostListActivity::class.java)
+            )
+        } else {
+            // 로그인이 되어있지 않을 경우
+            setContentView(R.layout.activity_email_sign_up)
+
+            initView(this)
+            setUpListener(this)
+        }
     }
 
     fun initView(activity: Activity) {
