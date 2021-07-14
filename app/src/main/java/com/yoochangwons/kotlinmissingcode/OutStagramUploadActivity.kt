@@ -8,6 +8,13 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_out_stagram_upload.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 class OutStagramUploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,5 +67,32 @@ class OutStagramUploadActivity : AppCompatActivity() {
         }
 
         return cursor.getString(columnIndex)
+    }
+
+    fun uploadPost(filePath: String) {
+        // 파일의 주소를 넣어주면 파일화 시킨다
+        val file = File(filePath)
+        // RequestBody 를 create(내가 원하는 타입을 넣어준다, 뒤에는 파일을 넣어준다)
+        // 즉 이미지 파일의 주소를 받아 파일화 시켜주고 이미지 타입을 넣어주고 파일도 같이 body 에 작성한다
+        val fileRequestBody = RequestBody.create(MediaType.parse("image/*"), file)
+        //
+        val part = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        val content = RequestBody.create(MediaType.parse("text/plain"), getContent())
+
+        (application as MasterApplication).service.upLoadPost(
+            part, content
+        ).enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun getContent(): String {
+        return content_input.text.toString()
     }
 }
