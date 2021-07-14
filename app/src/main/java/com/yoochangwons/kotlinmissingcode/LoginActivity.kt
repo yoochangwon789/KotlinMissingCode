@@ -38,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
                             this@LoginActivity, "로그인 하셨습니다.",
                             Toast.LENGTH_LONG
                         ).show()
+
                         startActivity(
                             Intent(this@LoginActivity, OutStagramPostListActivity::class.java)
                         )
@@ -47,6 +48,8 @@ class LoginActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                 }
             })
+
+            saveUserId(username, this)
         }
     }
 
@@ -54,6 +57,13 @@ class LoginActivity : AppCompatActivity() {
         val sp = activity.getSharedPreferences("login_sp", Context.MODE_PRIVATE)
         val editor = sp.edit()
         editor.putString("login_sp", token)
+        editor.apply()
+    }
+
+    fun saveUserId(userId: String, activity: Activity) {
+        val sp = activity.getSharedPreferences("userId", Context.MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putString("userId", userId)
         editor.apply()
     }
 }
