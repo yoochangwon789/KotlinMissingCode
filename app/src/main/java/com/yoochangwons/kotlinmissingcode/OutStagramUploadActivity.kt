@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_out_stagram_upload.*
+import kotlinx.android.synthetic.main.activity_out_stagram_upload.all_list
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -30,6 +31,24 @@ class OutStagramUploadActivity : AppCompatActivity() {
 
         view_upload.setOnClickListener {
             uploadPost()
+        }
+
+        all_list.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramPostListActivity::class.java)
+            )
+        }
+
+        my_list.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramMyPostListActivity::class.java)
+            )
+        }
+
+        user_info.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUserInfo::class.java)
+            )
         }
     }
 
@@ -92,6 +111,8 @@ class OutStagramUploadActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val post = response.body()
                     Log.d("pathh", post!!.content!!)
+                    finish()
+                    startActivity(Intent(this@OutStagramUploadActivity, OutStagramMyPostListActivity::class.java))
                 }
             }
 
