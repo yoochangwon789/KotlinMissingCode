@@ -1,5 +1,6 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,22 @@ class OutStagramMyPostListActivity : AppCompatActivity() {
         myPostRecyclerView = my_post_recycler_view
 
         createList()
+
+        all_list.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramPostListActivity::class.java)
+            )
+        }
+        upload.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUploadActivity::class.java)
+            )
+        }
+        user_info.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUserInfo::class.java)
+            )
+        }
     }
 
     fun createList() {
