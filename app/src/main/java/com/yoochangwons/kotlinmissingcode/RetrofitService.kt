@@ -48,4 +48,7 @@ interface RetrofitService {
         @Part image: MultipartBody.Part,
         @Part("content") requestBody: RequestBody
     ): Call<Post>
+
+    @GET("post/list/")
+    fun getUserPostList(): Call<ArrayList<Post>>
 }
