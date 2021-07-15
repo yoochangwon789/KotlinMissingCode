@@ -17,12 +17,19 @@ import retrofit2.Response
 import java.io.File
 
 class OutStagramUploadActivity : AppCompatActivity() {
+
+    lateinit var filePath: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_out_stagram_upload)
 
         view_pictures.setOnClickListener {
             getPicture()
+        }
+
+        view_upload.setOnClickListener {
+            uploadPost()
         }
     }
 
@@ -44,8 +51,8 @@ class OutStagramUploadActivity : AppCompatActivity() {
             // 실제 파일의 위치를 표시하지는 않음
             // 상태 경로
             val uri: Uri = data!!.data!!
-            val a = getImageFilePath(uri)
-            Log.d("pathh", "path : $a")
+            filePath = getImageFilePath(uri)
+            Log.d("pathh", "path : $filePath")
         }
     }
 
@@ -69,13 +76,12 @@ class OutStagramUploadActivity : AppCompatActivity() {
         return cursor.getString(columnIndex)
     }
 
-    fun uploadPost(filePath: String) {
+    fun uploadPost() {
         // 파일의 주소를 넣어주면 파일화 시킨다
         val file = File(filePath)
         // RequestBody 를 create(내가 원하는 타입을 넣어준다, 뒤에는 파일을 넣어준다)
         // 즉 이미지 파일의 주소를 받아 파일화 시켜주고 이미지 타입을 넣어주고 파일도 같이 body 에 작성한다
         val fileRequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-        //
         val part = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
         val content = RequestBody.create(MediaType.parse("text/plain"), getContent())
 
@@ -83,11 +89,13 @@ class OutStagramUploadActivity : AppCompatActivity() {
             part, content
         ).enqueue(object : Callback<Post> {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                TODO("Not yet implemented")
+                if (response.isSuccessful) {
+                    val post = response.body()
+                    Log.d("pathh", post!!.content!!)
+                }
             }
 
             override fun onFailure(call: Call<Post>, t: Throwable) {
-                TODO("Not yet implemented")
             }
         })
     }
