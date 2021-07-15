@@ -36,7 +36,7 @@ class OutStagramPostListActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val postList = response.body()
-                        val adapter = PostAdapter(postList!!, glide)
+                        val adapter = MyPostAdapter(postList!!, glide)
                         post_recycler_view.adapter = adapter
                         post_recycler_view.layoutManager =
                             LinearLayoutManager(this@OutStagramPostListActivity)
@@ -70,7 +70,7 @@ class OutStagramPostListActivity : AppCompatActivity() {
 class PostAdapter(
     private val dataSet: ArrayList<Post>,
     private val glide: RequestManager
-) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MyPostAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var postOwner: TextView? = null
