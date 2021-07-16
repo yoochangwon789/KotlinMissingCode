@@ -53,5 +53,5 @@ interface RetrofitService {
     fun getUserPostList(): Call<ArrayList<Post>>
 
     @GET("youtube/list/")
-    fun getYoutubeList()
+    fun getYoutubeList(): Call<ArrayList<YouTube>>
 }
