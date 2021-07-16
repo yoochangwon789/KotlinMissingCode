@@ -18,19 +18,19 @@ class MyTubeActivity : AppCompatActivity() {
 }
 
 class MyTubeAdapter(
-    private val dataSet: ArrayList<YouTube>,
+    private val youtubeList: ArrayList<YouTube>,
     private val glide: RequestManager
 ) : RecyclerView.Adapter<MyTubeAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView? = null
-        private val thumbnail: ImageView
+        val thumbnail: ImageView
         var content: TextView? = null
 
         init {
-            title = itemView.findViewById(R.id.item)
-            thumbnail = itemView.findViewById(R.id.post_img)
-            content = itemView.findViewById(R.id.post_content)
+            title = itemView.findViewById(R.id.youtube_title)
+            thumbnail = itemView.findViewById(R.id.youtube_thumbnail)
+            content = itemView.findViewById(R.id.youtube_content)
         }
     }
 
@@ -42,7 +42,10 @@ class MyTubeAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.title?.text = youtubeList[position].title
+        viewHolder.content?.text = youtubeList[position].content
+        glide.load(youtubeList[position].thumbnail).into(viewHolder.thumbnail)
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = youtubeList.size
 }
