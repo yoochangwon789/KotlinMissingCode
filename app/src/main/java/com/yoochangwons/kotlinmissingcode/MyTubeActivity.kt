@@ -1,5 +1,6 @@
 package com.yoochangwons.kotlinmissingcode
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -52,10 +53,11 @@ class MyTubeActivity : AppCompatActivity() {
 
 class MyTubeAdapter(
     private val youtubeList: ArrayList<YouTube>,
-    private val glide: RequestManager
+    private val glide: RequestManager,
+    val activity: Activity
 ) : RecyclerView.Adapter<MyTubeAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView? = null
         val thumbnail: ImageView
         var content: TextView? = null
@@ -64,6 +66,10 @@ class MyTubeAdapter(
             title = itemView.findViewById(R.id.youtube_title)
             thumbnail = itemView.findViewById(R.id.youtube_thumbnail)
             content = itemView.findViewById(R.id.youtube_content)
+
+            itemView.setOnClickListener {
+                activity
+            }
         }
     }
 
