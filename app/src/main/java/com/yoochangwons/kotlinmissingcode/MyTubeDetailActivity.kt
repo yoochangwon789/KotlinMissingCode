@@ -20,6 +20,5 @@ class MyTubeDetailActivity : AppCompatActivity() {
         
         // Exoplayer -> google 에서 제공하는 영상 전문적 플레이어 라이브러리
         // drm -> digital right management -> 영상을 다운로드를 제한 하는 것
-        
     }
 }
