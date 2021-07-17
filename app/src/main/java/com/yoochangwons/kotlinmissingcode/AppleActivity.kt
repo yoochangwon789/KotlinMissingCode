@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +20,12 @@ import kotlinx.android.synthetic.main.activity_apple.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class AppleActivity : AppCompatActivity() {
 
     lateinit var glide: RequestManager
+    var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,11 +68,20 @@ class AppleActivity : AppCompatActivity() {
                 thumbnail = itemView.findViewById(R.id.song_img)
                 play = itemView.findViewById(R.id.song_play)
 
-                itemView.setOnClickListener {
+                play.setOnClickListener {
                     val position = adapterPosition
                     val path = songList[position].song
-                    val mediaPlayer = MediaPlayer.create(this@AppleActivity, Uri.parse(path))
-                    mediaPlayer.start()
+
+                    try {
+                        mediaPlayer?.stop()
+                        // 음악 영상은 핸드폰 리소스를 많이 차지 하는데 리소스를 놓아주기 위하여 release 를 많이 사용한다
+                        mediaPlayer?.release()
+                        mediaPlayer = null
+                        mediaPlayer = MediaPlayer.create(this@AppleActivity, Uri.parse(path))
+                        mediaPlayer?.start()
+                    } catch (e: Exception) {
+                        Log.d("eee" , "Exception : $e")
+                    }
                 }
             }
         }
