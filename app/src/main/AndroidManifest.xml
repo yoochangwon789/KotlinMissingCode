@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
-        <activity android:name=".MyTubeDetailActivity"></activity>
+        <activity android:name=".AppleActivity"></activity>
+        <activity android:name=".MyTubeDetailActivity" />
         <activity android:name=".MyTubeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,7 @@
         <activity android:name=".OutStagramUserInfo" />
         <activity android:name=".OutStagramPostListActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".EmailSignUpActivity"></activity>
+        <activity android:name=".EmailSignUpActivity" />
         <activity android:name=".PermissionActivity" />
         <activity android:name=".RetrofitRecyclerView" />
         <activity android:name=".RetrofitActivity" />
