@@ -9,13 +9,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import kotlinx.android.synthetic.main.activity_apple.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AppleActivity : AppCompatActivity() {
+
+    lateinit var glide: RequestManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apple)
+
+        glide = Glide.with(this)
+
+        (application as MasterApplication).service.getSongList().enqueue(
+            object : Callback<ArrayList<Song>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Song>>,
+                    response: Response<ArrayList<Song>>
+                ) {
+                    if (response.isSuccessful) {
+                        val songList = response.body()
+                        val adapter = MelonAdapter(songList!!, glide, this@AppleActivity)
+                        apple_recycler_view.adapter = adapter
+                        apple_recycler_view.layoutManager = LinearLayoutManager(this@AppleActivity)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Song>>, t: Throwable) {
+                }
+            })
     }
 
     inner class MelonAdapter(
