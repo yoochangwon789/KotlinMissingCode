@@ -52,6 +52,12 @@ class AppleActivity : AppCompatActivity() {
             })
     }
 
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+    }
+
     inner class MelonAdapter(
         private val songList: ArrayList<Song>,
         private val glide: RequestManager,
