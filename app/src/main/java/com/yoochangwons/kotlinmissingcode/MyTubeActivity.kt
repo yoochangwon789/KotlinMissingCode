@@ -1,6 +1,7 @@
 package com.yoochangwons.kotlinmissingcode
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -37,7 +38,7 @@ class MyTubeActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         glide = Glide.with(this@MyTubeActivity)
                         val youtubeList = response.body()
-                        val adapter = MyTubeAdapter(youtubeList!!, glide)
+                        val adapter = MyTubeAdapter(youtubeList!!, glide, this@MyTubeActivity)
                         my_tube_recycler_view.adapter = adapter
                         my_tube_recycler_view.layoutManager = LinearLayoutManager(this@MyTubeActivity)
                     }
@@ -68,7 +69,10 @@ class MyTubeAdapter(
             content = itemView.findViewById(R.id.youtube_content)
 
             itemView.setOnClickListener {
-                activity
+                val position = adapterPosition
+                val intent = Intent(activity, MyTubeDetailActivity::class.java)
+                intent.putExtra("video_url", youtubeList[position].video)
+                activity.startActivity(intent)
             }
         }
     }
