@@ -12,6 +12,8 @@
         android:layout_height="300dp">
 
         <fragment
+            android:id="@+id/fragment_lifecycle_view"
+            android:name="com.yoochangwons.kotlinmissingcode.FragmentLifeCycle"
             android:layout_width="match_parent"
             android:layout_height="300dp"/>
 
