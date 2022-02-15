@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMissingCode">
         <activity android:name=".FragmentLifeCycleActivity"></activity>
-        <activity android:name=".LifeCycleTestActivity">
+        <activity android:name=".LifeCycleTestActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
